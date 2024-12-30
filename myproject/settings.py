@@ -1,34 +1,21 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# .env 파일을 로드합니다.
+load_dotenv()
 
 # BASE_DIR을 프로젝트의 최상위 디렉토리로 설정
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# secret key
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # host
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Debug
 DEBUG = False
-
-# logging
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": "debug.log",
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-    },
-}
 
 # database
 DATABASES = {
@@ -37,6 +24,46 @@ DATABASES = {
         "NAME": BASE_DIR
         / "db.sqlite3",  # 데이터베이스 파일 경로 (프로젝트 디렉토리에 db.sqlite3 파일이 생성됨)
     }
+}
+
+# logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{levelname}] {asctime} {module} {message}",  # 디버그 메시지, 일반적인 메시지에 대한 포맷
+            "style": "{",
+        },
+        "detailed": {
+            "format": "[{levelname}] {asctime} {module} {message} | {pathname} {funcName} | {lineno}",  # 오류 시 자세한 정보 포함
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",  # 기본 레벨은 INFO
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",  # INFO, DEBUG, WARNING 메시지에는 간단한 포맷 사용
+        },
+        "error_console": {
+            "level": "ERROR",  # ERROR 레벨 이상의 메시지는 ERROR 콘솔 핸들러로 출력
+            "class": "logging.StreamHandler",
+            "formatter": "detailed",  # ERROR 메시지에 대해서는 상세 포맷 사용
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "error_console"],
+            "level": "INFO",  # 기본적으로 INFO 이상의 메시지를 출력
+            "propagate": True,
+        },
+        "django.db.backends": {
+            "level": "ERROR",  # DB 관련 쿼리에서 ERROR 이상만 출력
+            "handlers": ["error_console"],
+            "propagate": False,
+        },
+    },
 }
 
 # root
@@ -77,10 +104,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",  # 메시지 프레임워크 앱
     "django.contrib.staticfiles",  # 정적 파일 처리 앱
     "myproject",  # 여러분의 앱 (예시: myproject 앱)
+    "user",  # user 앱 추가
 ]
 
 # static
-STATIC_URL = "/static/"
-
-# secret key
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-default-secret-key-here")
+# STATIC_URL = "/static/"
