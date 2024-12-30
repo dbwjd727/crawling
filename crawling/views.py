@@ -9,8 +9,6 @@ logger = logging.getLogger("django")
 
 
 def get_stock_data(request):
-    # 크롤링할 주식 URL 설정 (예: 삼성전자 주식)
-    stock_code = "005930"  # 삼성전자
     url = f"https://finance.naver.com/"
 
     logger.info(f"요청 보낼 url: {url}")
@@ -24,7 +22,6 @@ def get_stock_data(request):
 
     # BeautifulSoup을 사용하여 HTML 파싱
     soup = BeautifulSoup(response.text, "html.parser")
-    # logger.info(f"soup???????: {soup}")
 
     # 여러 행을 반복문으로 크롤링
     stock_info = ""  # 결과를 저장할 변수
