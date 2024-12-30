@@ -27,41 +27,58 @@ DATABASES = {
 }
 
 # logging
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "verbose": {
+#             "format": "[{levelname}] {asctime} {module} {message}",  # 디버그 메시지, 일반적인 메시지에 대한 포맷
+#             "style": "{",
+#         },
+#         "detailed": {
+#             "format": "[{levelname}] {asctime} {module} {message} | {pathname} {funcName} | {lineno}",  # 오류 시 자세한 정보 포함
+#             "style": "{",
+#         },
+#     },
+#     "handlers": {
+#         "console": {
+#             "level": "INFO",  # 기본 레벨은 INFO
+#             "class": "logging.StreamHandler",
+#             "formatter": "verbose",  # INFO, DEBUG, WARNING 메시지에는 간단한 포맷 사용
+#         },
+#         "error_console": {
+#             "level": "ERROR",  # ERROR 레벨 이상의 메시지는 ERROR 콘솔 핸들러로 출력
+#             "class": "logging.StreamHandler",
+#             "formatter": "detailed",  # ERROR 메시지에 대해서는 상세 포맷 사용
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["console", "error_console"],
+#             "level": "INFO",  # 기본적으로 INFO 이상의 메시지를 출력
+#             "propagate": True,
+#         },
+#         "django.db.backends": {
+#             "level": "ERROR",  # DB 관련 쿼리에서 ERROR 이상만 출력
+#             "handlers": ["error_console"],
+#             "propagate": False,
+#         },
+#     },
+# }
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "[{levelname}] {asctime} {module} {message}",  # 디버그 메시지, 일반적인 메시지에 대한 포맷
-            "style": "{",
-        },
-        "detailed": {
-            "format": "[{levelname}] {asctime} {module} {message} | {pathname} {funcName} | {lineno}",  # 오류 시 자세한 정보 포함
-            "style": "{",
-        },
-    },
     "handlers": {
         "console": {
-            "level": "INFO",  # 기본 레벨은 INFO
+            "level": "INFO",  # 로그 레벨을 설정
             "class": "logging.StreamHandler",
-            "formatter": "verbose",  # INFO, DEBUG, WARNING 메시지에는 간단한 포맷 사용
-        },
-        "error_console": {
-            "level": "ERROR",  # ERROR 레벨 이상의 메시지는 ERROR 콘솔 핸들러로 출력
-            "class": "logging.StreamHandler",
-            "formatter": "detailed",  # ERROR 메시지에 대해서는 상세 포맷 사용
         },
     },
     "loggers": {
         "django": {
-            "handlers": ["console", "error_console"],
-            "level": "INFO",  # 기본적으로 INFO 이상의 메시지를 출력
-            "propagate": True,
-        },
-        "django.db.backends": {
-            "level": "ERROR",  # DB 관련 쿼리에서 ERROR 이상만 출력
-            "handlers": ["error_console"],
-            "propagate": False,
+            "handlers": ["console"],  # 로그를 출력할 핸들러 지정
+            "level": "INFO",  # 로그 레벨을 설정
+            "propagate": True,  # 부모 로거에게 전달
         },
     },
 }
