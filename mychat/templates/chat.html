@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+</head>
+<body>
+    <h1>AI Chat</h1>
+    <input type="text" id="user-input" placeholder="Type a message" />
+    <button onclick="sendMessage()">Send</button>
+    <div id="chat-box"></div>
+
+    <script>
+        async function sendMessage() {
+            const userMessage = document.getElementById('user-input').value;
+            const chatBox = document.getElementById('chat-box');
+
+            // 사용자 메시지 출력
+            chatBox.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
+
+            // 서버에 메시지 전송 (POST 요청)
+            const response = await fetch('/mychat/chat-api/', {
+                method: 'POST',  // POST 요청으로 보내기
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMessage }),
+            });
+
+            const data = await response.json();
+            if (data.response) {
+                // AI 응답 출력
+                chatBox.innerHTML += `<div><strong>AI:</strong> ${data.response}</div>`;
+            }
+            document.getElementById('user-input').value = '';
+        }
+    </script>
+</body>
+</html>

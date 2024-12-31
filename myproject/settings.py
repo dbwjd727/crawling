@@ -11,6 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # secret key
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
+# open api key
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 # host
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
@@ -88,7 +91,9 @@ ROOT_URLCONF = "myproject.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",  # Django 템플릿 엔진 사용
-        "DIRS": [],  # 템플릿 디렉토리 (필요하면 추가)
+        "DIRS": [
+            BASE_DIR / "templates",  # 템플릿 파일 경로 추가
+        ],
         "APP_DIRS": True,  # 앱 내 템플릿을 자동으로 검색
         "OPTIONS": {
             "context_processors": [
@@ -121,7 +126,8 @@ INSTALLED_APPS = [
     "myproject",  # 여러분의 앱 (예시: myproject 앱)
     "user",  # user 앱 추가
     "django_apscheduler",  # APScheduler 앱 추가
-    "myapp",  # myapp 앱 추가
+    "myscheduler",  # myscheduler 앱 추가
+    "mychat",  # mychat 앱 추가
 ]
 
 # static
