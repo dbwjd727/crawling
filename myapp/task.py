@@ -15,7 +15,8 @@ def start_scheduler():
     # 예: 매일 오전 9시에 실행
     scheduler.add_job(
         my_scheduled_task,
-        trigger=IntervalTrigger(seconds=60),  # 매 3초마다 실행
+        # trigger=IntervalTrigger(seconds=60),  # 매 3초마다 실행
+        trigger=CronTrigger(hour=9, minute=0),  # 매일 9시 0분에 실행
         id="my_task",  # 고유 ID (중복 방지)
         replace_existing=True,  # 동일 ID의 기존 작업을 교체
     )
