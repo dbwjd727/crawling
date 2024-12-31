@@ -70,14 +70,12 @@ LOGGING = {
     "disable_existing_loggers": False,
     "handlers": {
         "console": {
-            "level": "INFO",  # 로그 레벨을 설정
             "class": "logging.StreamHandler",
         },
     },
     "loggers": {
         "django": {
             "handlers": ["console"],  # 로그를 출력할 핸들러 지정
-            "level": "INFO",  # 로그 레벨을 설정
             "propagate": True,  # 부모 로거에게 전달
         },
     },
@@ -122,6 +120,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",  # 정적 파일 처리 앱
     "myproject",  # 여러분의 앱 (예시: myproject 앱)
     "user",  # user 앱 추가
+    "django_apscheduler",  # APScheduler 앱 추가
+    "myapp",  # myapp 앱 추가
 ]
 
 # static
